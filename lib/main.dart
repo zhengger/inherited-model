@@ -29,7 +29,7 @@ class NumberManagerWidget extends StatefulWidget {
         super(key: key);
 
   @override
-  State<StatefulWidget> createState() => NumberManagerWidgetState();
+  NumberManagerWidgetState createState() => NumberManagerWidgetState();
 }
 
 class NumberManagerWidgetState extends State<NumberManagerWidget> {
@@ -43,13 +43,17 @@ class NumberManagerWidgetState extends State<NumberManagerWidget> {
     resetTimer();
   }
 
+  //TODO? What's the intend of "didUpdateWidget"?
   @override
   void didUpdateWidget(NumberManagerWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    resetTimer();
-  }
+    // resetTimer();
+    print("this is $oldWidget");
+    }
+  
 
   void resetTimer() {
+    //* ?. Conditional member access, if updateTimer is null, the value of  this expression is null.
     updateTimer?.cancel();
     updateTimer = Timer.periodic(
       Duration(milliseconds: widget.updateMs),
@@ -125,11 +129,12 @@ class NumberModel extends InheritedModel<NUMBER_TYPE> {
 
   @override
   bool updateShouldNotifyDependent(NumberModel old, Set<NUMBER_TYPE> aspects) {
-    return (aspects.contains(NUMBER_TYPE.FIRST) &&
-            old.firstValue != firstValue) ||
-        (aspects.contains(NUMBER_TYPE.SECOND) &&
-            old.secondValue != secondValue) ||
-        (aspects.contains(NUMBER_TYPE.THIRD) && old.thirdValue != thirdValue);
+    // return (aspects.contains(NUMBER_TYPE.FIRST) &&
+    //         old.firstValue != firstValue) ||
+    //     (aspects.contains(NUMBER_TYPE.SECOND) &&
+    //         old.secondValue != secondValue) ||
+    //     (aspects.contains(NUMBER_TYPE.THIRD) && old.thirdValue != thirdValue);
+    return false;
   }
 }
 
@@ -141,9 +146,9 @@ class MyHomePage extends StatelessWidget {
         title: Text('Inherited Model vs Inherited Widget'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(40.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
